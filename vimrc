@@ -25,6 +25,12 @@ syntax on
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
 
+" Automatic loading of NERDTree
+autocmd vimenter * NERDTree
+
+" Automatically close /NERDTree / vim when NERDTree is ast window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 " Use case insensitive search, except when using capital letters
 "------------------------------------------------------------
 " Must have options {{{1
@@ -139,6 +145,14 @@ set clipboard=unnamed
 set history=700
 set undolevels=700
  
+" Settings for plugins
+execute pathogen#infect()
+ 
+" Settings for vim-powerline
+" cd ~/.vim/bundle
+" git clone git://github.com/Lokaltog/vim-powerline.git
+set laststatus=2
+
 "------------------------------------------------------------
 " Indentation options {{{1
 "
@@ -157,14 +171,18 @@ set shiftround
 "set shiftwidth=4
 "set tabstop=4
  
-" Settings for plugins
-execute pathogen#infect()
- 
 "------------------------------------------------------------
 " Mappings {{{1
 "
 " Useful mappings
  
+" Toggle NERDTree
+nmap <S-n> :NERDTreeToggle<CR>
+
+" Easier moving between splits
+map <C-H> <C-W>h<C-W>_
+map <C-L> <C-W>l<C-W>_
+
 " Rebin <Leader> key
 let mapleader = ","
  

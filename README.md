@@ -1,6 +1,9 @@
 README for Dotfiles
 ==================
 
+Dotfiles to manage my system setup. So far it contains my vim configuration and
+plugins. 
+
 Manage these dotfiles using [dotfiles](https://github.com/jbernard/dotfiles).
 
 Installation
@@ -38,11 +41,11 @@ Interface
 Examples 
 --------
 
-To add '~/.vimrc' to your repository: :: 
+To add '~/.vimrc' to your repository:
 
     $ dotfile --add ~/.vimrc
 
-To make it available to all your hosts: ::
+To make it available to all your hosts:
     
     $ cd ~/Dotfiles
     $ git add vimrc

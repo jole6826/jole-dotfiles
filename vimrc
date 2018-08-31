@@ -21,6 +21,9 @@ filetype plugin indent on
  
 " Enable syntax highlighting
 syntax on
+
+" Enable line highlighting
+:set cursorline
  
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
@@ -30,6 +33,9 @@ autocmd vimenter * NERDTree
 
 " Automatically close /NERDTree / vim when NERDTree is ast window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Automatically enable auto-complete for HTML files
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
 " Use case insensitive search, except when using capital letters
 "------------------------------------------------------------
@@ -198,7 +204,6 @@ map Y y$
 " Removes highlight of your last search
 nnoremap <C-n> :nohl<CR>
 vnoremap <C-n> :nohl<CR>
-inoremap <C-n> :nohl<CR>
 
 " map sort function to ,+s (good for sorting python imports
 vnoremap <Leader>s :sort<CR>

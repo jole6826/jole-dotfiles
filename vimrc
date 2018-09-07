@@ -1,19 +1,33 @@
-" Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
-" Description: A minimal, but feature rich, example .vimrc. If you are a
-"              newbie, basing your first .vimrc on this file is a good choice.
-"              If you're a more advanced user, building your own .vimrc based
-"              on this file is still a good idea.
- 
 "------------------------------------------------------------
-" Features {{{1
-"
-" These options and commands enable some very useful features in Vim, that
-" no user should have to live without.
- 
+" Vundle plugin manager 
+
 " Set 'nocompatible' to ward off unexpected things that your distro might
 " have made, as well as sanely reset options when re-sourcing .vimrc
 set nocompatible
  
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+
+"Installed plugins 
+
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-ragtag'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'vim-airline/vim-airline'
+
+call vundle#end()
+filetype plugin indent on
+
+"------------------------------------------------------------
+" Features 
+
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
@@ -31,9 +45,15 @@ autocmd! bufwritepost .vimrc source %
 " Automatically enable auto-complete for HTML files
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
+" Automatically open NERDTree
+autocmd vimenter * NERDTree
+
+" Automatically close vim when NERDTree is only window open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 " Use case insensitive search, except when using capital letters
 "------------------------------------------------------------
-" Must have options {{{1
+" Must have options
 "
 " These are highly recommended options.
  
@@ -73,6 +93,43 @@ set hlsearch
 " script, <http://www.vim.org/scripts/script.php?script_id=1876>.
 " set nomodeline
  
+"------------------------------------------------------------
+" Mappings {{{1 "
+" Useful mappings
+ 
+" Toggle NERDTree
+nmap <S-n> :NERDTreeToggle<CR>
+
+" Easier moving between splits
+map <C-H> <C-W>h<C-W>_
+map <C-L> <C-W>l<C-W>_
+
+" Rebin <Leader> key
+let mapleader = ","
+ 
+" Easier moving between tabs with ,+n or ,+m 
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
+
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default
+map Y y$
+ 
+" Bind nohl
+" Removes highlight of your last search
+nnoremap <C-n> :nohl<CR>
+vnoremap <C-n> :nohl<CR>
+
+" map sort function to ,+s (good for sorting python imports
+vnoremap <Leader>s :sort<CR>
+
+" easier moving (indentation) of code blocks
+vnoremap < <gv
+vnoremap > >gv
+
+" Quick quit command with ,+e
+noremap <Leader>e :quit<CR> "Quit current window
+
  
 "------------------------------------------------------------
 " Usability options {{{1
@@ -124,7 +181,7 @@ set number
 set relativenumber
 
 " Show line Length
-set tw=79   " width of document
+set tw=95   " width of document
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
 set colorcolumn=80
@@ -142,9 +199,7 @@ set clipboard=unnamed
 set history=700
 set undolevels=700
  
-" Settings for vim-powerline
-" cd ~/.vim/bundle
-" git clone git://github.com/Lokaltog/vim-powerline.git
+" For status bar
 set laststatus=2
 
 "------------------------------------------------------------
@@ -166,41 +221,14 @@ set shiftround
 "set tabstop=4
  
 "------------------------------------------------------------
-" Mappings {{{1
-"
-" Useful mappings
- 
-" Toggle NERDTree
-" nmap <S-n> :NERDTreeToggle<CR>
+" NERDTrees File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+    exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+    exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
 
-" Easier moving between splits
-map <C-H> <C-W>h<C-W>_
-map <C-L> <C-W>l<C-W>_
+call NERDTreeHighlightFile('py', 'blue', 'none', 'blue', '#151515')
+call NERDTreeHighlightFile('cpp', 'blue', 'none', 'blue', '#151515')
+call NERDTreeHighlightFile('html', 'magenta', 'none', 'magenta', '#151515')
+call NERDTreeHighlightFile('css', 'magenta', 'none', 'magenta', '#151515')
 
-" Rebin <Leader> key
-let mapleader = ","
- 
-" Easier moving between tabs with ,+n or ,+m 
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
-
-" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
-" which is the default
-map Y y$
- 
-" Bind nohl
-" Removes highlight of your last search
-nnoremap <C-n> :nohl<CR>
-vnoremap <C-n> :nohl<CR>
-
-" map sort function to ,+s (good for sorting python imports
-vnoremap <Leader>s :sort<CR>
-
-" easier moving (indentation) of code blocks
-vnoremap < <gv
-vnoremap > >gv
-
-" Quick quit command with ,+e
-noremap <Leader>e :quit<CR> "Quit current window
-
-"------------------------------------------------------------

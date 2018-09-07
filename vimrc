@@ -28,12 +28,6 @@ syntax on
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
 
-" Automatic loading of NERDTree
-autocmd vimenter * NERDTree
-
-" Automatically close /NERDTree / vim when NERDTree is ast window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 " Automatically enable auto-complete for HTML files
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
@@ -105,9 +99,6 @@ set nostartofline
 " line of a window
 set ruler
  
-" Always display the status line, even if only one window is displayed
-set laststatus=2
- 
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
 set confirm
@@ -151,9 +142,6 @@ set clipboard=unnamed
 set history=700
 set undolevels=700
  
-" Settings for plugins
-execute pathogen#infect()
- 
 " Settings for vim-powerline
 " cd ~/.vim/bundle
 " git clone git://github.com/Lokaltog/vim-powerline.git
@@ -183,7 +171,7 @@ set shiftround
 " Useful mappings
  
 " Toggle NERDTree
-nmap <S-n> :NERDTreeToggle<CR>
+" nmap <S-n> :NERDTreeToggle<CR>
 
 " Easier moving between splits
 map <C-H> <C-W>h<C-W>_

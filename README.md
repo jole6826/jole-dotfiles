@@ -51,3 +51,8 @@ To make it available to all your hosts:
     $ git add vimrc
     $ git commit -m "Added vimrc, welcome!"
     $ git push
+
+To then use it on a different system, first install Dotfiles and then:
+
+    $ git clone https://github.com/jole6826/jole-dotfiles Dotfiles
+    $ dotfiles --sync

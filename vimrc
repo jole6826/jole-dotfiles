@@ -20,6 +20,7 @@ Plugin 'tpope/vim-ragtag'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 call vundle#end()
 filetype plugin indent on
@@ -103,6 +104,8 @@ nmap <S-n> :NERDTreeToggle<CR>
 " Easier moving between splits
 map <C-H> <C-W>h<C-W>_
 map <C-L> <C-W>l<C-W>_
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
 
 " Rebin <Leader> key
 let mapleader = ","
@@ -187,6 +190,11 @@ set fo-=t   " don't automatically wrap text when typing
 set colorcolumn=80
 highlight ColorColumn ctermbg=233
 
+" Start scrolling when 8 lines from margins
+set scrolloff=8
+set sidescrolloff=15
+set sidescroll=1
+
 
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
@@ -201,6 +209,9 @@ set undolevels=700
  
 " For status bar
 set laststatus=2
+
+" Set airline theme
+let g:airline_theme='base16_ocean'
 
 "------------------------------------------------------------
 " Indentation options {{{1
